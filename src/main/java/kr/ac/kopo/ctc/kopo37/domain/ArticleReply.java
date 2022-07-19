@@ -21,6 +21,7 @@ public class ArticleReply {
 	private Long id;
 	private Long replyId;
 	private Long parentId;
+	private Integer depth;
 	private String replyWriter;
 	private String replyContent;
 	private Date replyRegisterDate;
@@ -28,7 +29,7 @@ public class ArticleReply {
 
 	@JsonBackReference
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="ArticleBoard_Id", referencedColumnName = "ID")
+	@JoinColumn(name="articleBoard_id", referencedColumnName = "id")
 	private ArticleBoard articleBoard ;
 
 	public Long getId() {
@@ -53,6 +54,14 @@ public class ArticleReply {
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}	
+
+	public Integer getDepth() {
+		return depth;
+	}
+
+	public void setDepth(Integer depth) {
+		this.depth = depth;
 	}
 
 	public String getReplyWriter() {
