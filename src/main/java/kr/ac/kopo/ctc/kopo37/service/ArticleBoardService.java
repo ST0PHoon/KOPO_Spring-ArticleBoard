@@ -15,7 +15,7 @@ public interface ArticleBoardService {
 	
 	List<ArticleBoard> findAll();	// 전체
 	
-	Page<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber);	// 페이징
+	List<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber);	// 페이징
 	
 	// D
 	void deleteById(Long id);
