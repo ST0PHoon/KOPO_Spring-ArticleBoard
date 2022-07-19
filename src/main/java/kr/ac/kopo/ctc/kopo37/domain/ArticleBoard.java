@@ -30,8 +30,9 @@ public class ArticleBoard {
 	private Date updateDate;
 	
 	@JsonManagedReference
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="ArticleReply")
-	private List<ArticleReply> articleReplys;
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="articleBoard")
+	
+	private List<ArticleReply> articleReplies;
 
 	public Long getId() {
 		return id;
@@ -90,11 +91,11 @@ public class ArticleBoard {
 	}
 
 	public List<ArticleReply> getArticeclReplys() {
-		return articleReplys;
+		return articleReplies;
 	}
 
 	public void setArticeclReplys(List<ArticleReply> articeclReplys) {
-		this.articleReplys = articeclReplys;
+		this.articleReplies = articeclReplys;
 	}
 
 
