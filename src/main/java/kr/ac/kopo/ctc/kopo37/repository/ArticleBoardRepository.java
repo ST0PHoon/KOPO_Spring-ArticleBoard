@@ -18,6 +18,6 @@ public interface ArticleBoardRepository extends JpaRepository<ArticleBoard, Long
 
 	List<ArticleBoard> findAllById(Long id);
 	
-	Page<ArticleBoard> findAllOrderByIdDesc(Pageable pageableCondition);
+	Page<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Long minId , Pageable pageableCondition);
 	
 }
