@@ -22,15 +22,15 @@ public class ArticleBoardController {
 	@RequestMapping(value = "/list")
 	public String boardlist(Model model) {
 		
-//		model.addAttribute("AllItems", articleBoardService.findAll());
+		model.addAttribute("AllItems", articleBoardService.findAll());
 		return "list";
 	}
 	
 	@RequestMapping(value = "/oneView/{id}")
 	public String boardView(Model model, @PathVariable("id") Long id) {
 		
-//		model.addAttribute("oneViewItem", articleBoardService.findAllById(id));
-//		model.addAttribute("oneViewItem", articleReplyService.findAllById(id));
+		model.addAttribute("oneViewItem", articleBoardService.findOneById(id));
+		model.addAttribute("oneViewItemReplies", articleReplyService.findAllByArticleBoardId(id));
 		
 		return "oneView";
 	}
