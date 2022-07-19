@@ -21,8 +21,8 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	}
 
 	@Override
-	public ArticleBoard findOneById(Long id) {
-		ArticleBoard articleList = articleBoardRepository.findById(id).get();
+	public List<ArticleBoard> findOneById(Long id) {
+		List<ArticleBoard> articleList = articleBoardRepository.findAllById(id);
 		return articleList;
 	}
 
@@ -33,19 +33,20 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	}
 
 	@Override
-	public Page<ArticleBoard> findAllByOrderByRootidDescRecntAsc(Integer currentPage, Integer itemNumber) {
+	public Page<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber) {
+		final Long minId = 0L;
+		
 	   // 첫페이지, 2개씩, 내림차순, 기준 id
 	   org.springframework.data.domain.Pageable pageableCondition = PageRequest.of(currentPage, itemNumber);
 	   
-	   Page<ArticleBoard> articleItemsPage = articleBoardRepository.findAllOrderByIdDesc(pageableCondition);
+	   Page<ArticleBoard> articleItemsPage = articleBoardRepository.findByIdGreaterThanOrderByIdDesc(minId , pageableCondition);
 		
 		return articleItemsPage;
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		articleBoardRepository.deleteById(id);;
 	}
 
 }
