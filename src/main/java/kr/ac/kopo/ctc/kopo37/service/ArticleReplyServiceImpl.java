@@ -3,8 +3,6 @@ package kr.ac.kopo.ctc.kopo37.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import kr.ac.kopo.ctc.kopo37.domain.ArticleReply;
@@ -19,11 +17,17 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 	public void saveBoardItem(ArticleReply articleReply) {
 		articleReplyRepository.save(articleReply);	
 	}
+	
+	@Override
+	public List<ArticleReply> findAllByArticleBoardId(Long id) {
+		List<ArticleReply> replyList = articleReplyRepository.findAllByArticleBoardId(id);
+		return replyList;
+	}
 
 	@Override
-	public List<ArticleReply> findAllByArticleIdOrderByParentIdReplyIdAsc(Long boardId) {
-		List<ArticleReply> articleListByArticleId = articleReplyRepository.findAllByArticleIdOrderByParentIdReplyIdAsc(boardId);
-		return articleListByArticleId;
+	public List<ArticleReply> findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(Long boardId) {
+		List<ArticleReply> replyList = articleReplyRepository.findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(boardId);
+		return replyList;
 	}
 
 	@Override
@@ -35,5 +39,6 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 	public void deleteAllByParentId(Long id) {	// 댓글 삭제
 		articleReplyRepository.deleteByParentId(id);
 	}
+
 
 }

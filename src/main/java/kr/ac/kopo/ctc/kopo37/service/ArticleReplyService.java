@@ -12,7 +12,9 @@ public interface ArticleReplyService {
 	void saveBoardItem(ArticleReply articleReply);
 	
 	// R
-	List<ArticleReply> findAllByArticleIdOrderByParentIdReplyIdAsc(Long id);	// 전체, 원글 아이디에 해당하는 내용만
+	List<ArticleReply> findAllByArticleBoardId(Long id);
+	
+	List<ArticleReply> findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(Long id);	// 전체, 원글 아이디에 해당하는 내용만
 	
 	// D
 	void deleteOneById(Long id);

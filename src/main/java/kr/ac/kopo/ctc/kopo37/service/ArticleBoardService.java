@@ -11,11 +11,11 @@ public interface ArticleBoardService {
 	// C, U
 	void saveBoardItem(ArticleBoard articleBoard);
 	// R
-	ArticleBoard findOneById(Long id);	// 하나
+	List<ArticleBoard> findOneById(Long id);	// 하나
 	
 	List<ArticleBoard> findAll();	// 전체
 	
-	Page<ArticleBoard> findAllByOrderByRootidDescRecntAsc(Integer currentPage, Integer itemNumber);	// 페이징
+	Page<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber);	// 페이징
 	
 	// D
 	void deleteById(Long id);
