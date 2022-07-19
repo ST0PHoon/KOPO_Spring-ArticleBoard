@@ -33,15 +33,15 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	}
 
 	@Override
-	public Page<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber) {
+	public List<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage, Integer itemNumber) {
 		final Long minId = 0L;
 		
 	   // 첫페이지, 2개씩, 내림차순, 기준 id
 	   org.springframework.data.domain.Pageable pageableCondition = PageRequest.of(currentPage, itemNumber);
 	   
-	   Page<ArticleBoard> articleItemsPage = articleBoardRepository.findByIdGreaterThanOrderByIdDesc(minId , pageableCondition);
-		
-		return articleItemsPage;
+	   List<ArticleBoard> articleItemsPage = articleBoardRepository.findByIdGreaterThanOrderByIdDesc(minId , pageableCondition).toList();
+	   
+	   return  articleItemsPage;
 	}
 
 	@Override
