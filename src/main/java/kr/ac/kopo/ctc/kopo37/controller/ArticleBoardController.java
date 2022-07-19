@@ -10,28 +10,27 @@ import kr.ac.kopo.ctc.kopo37.service.ArticleBoardService;
 import kr.ac.kopo.ctc.kopo37.service.ArticleReplyService;
 
 @Controller
-@RequestMapping(value = "/boardItem")
+@RequestMapping(value = "/articleBoard")
 public class ArticleBoardController {
-	
+	@Autowired
+	private ArticleBoardService articleBoardService;
 	@Autowired
 	private ArticleReplyService articleReplyService;
 	
-	@Autowired
-	private ArticleBoardService articleBoardService;
-	
-	@RequestMapping(value = "/list")
-	public String boardlist(Model model) {
+	@RequestMapping(value = "/{page}")
+	public String boardlist(Model model, @PathVariable("page") Integer currentArticlteListPage) {
+		final Integer articleNumber = 10;
 		
-		model.addAttribute("AllItems", articleBoardService.findAll());
-		return "list";
+		model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage - 1, articleNumber));
+		return "articleList";
 	}
-	
-	@RequestMapping(value = "/oneView/{id}")
+	// 이름 수정
+	@RequestMapping(value = "/selectedArticle/{id}")
 	public String boardView(Model model, @PathVariable("id") Long id) {
 		
-		model.addAttribute("oneViewItem", articleBoardService.findOneById(id));
-		model.addAttribute("oneViewItemReplies", articleReplyService.findAllByArticleBoardId(id));
+		model.addAttribute("selectedArticleItem", articleBoardService.findOneById(id));
+		model.addAttribute("selectedArticleReplies", articleReplyService.findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(id));
 		
-		return "oneView";
+		return "selectedArticle";
 	}
 }
