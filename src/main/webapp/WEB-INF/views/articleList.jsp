@@ -27,6 +27,21 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
 	<input type = button value = "등록" onclick = "location.href='#'">
+	
+	<div class="text-center">
+
+		<a href='/articleBoard/${ArticlePagination.ppPage}'><c:out value="<<"/></a>
+		<a href='/articleBoard/${ArticlePagination.pPage}'><c:out value="<"/></a>
+
+		<c:forEach var="i" begin="${ArticlePagination.startPage}" end="${ArticlePagination.lastPage}">
+		  <b><a href = '/articleBoard/${i - 1}'>${i}</a></b>
+		</c:forEach>
+	
+		<a href='/articleBoard/${ArticlePagination.nPage}'><c:out value=">"/></a>
+		<a href='/articleBoard/${ArticlePagination.nnPage}'><c:out value=">>"/></a>
+
+	</div>
 </body>
 </html>

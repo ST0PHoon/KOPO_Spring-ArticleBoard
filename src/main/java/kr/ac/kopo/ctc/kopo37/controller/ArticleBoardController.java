@@ -19,9 +19,8 @@ public class ArticleBoardController {
 	
 	@RequestMapping(value = "/{page}")
 	public String boardlist(Model model, @PathVariable("page") Integer currentArticlteListPage) {
-		final Integer articleNumber = 10;
-		
-		model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage - 1, articleNumber));
+		model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage));
+		model.addAttribute("ArticlePagination", articleBoardService.getPagination(currentArticlteListPage));
 		return "articleList";
 	}
 	// 이름 수정
