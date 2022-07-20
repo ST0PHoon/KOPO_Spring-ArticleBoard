@@ -21,26 +21,26 @@
 		<c:forEach var="Articles" items="${ArticleItems}" varStatus="status">
 			<tr align=center>
 			    <td width = 50><c:out value="${Articles.id}"/></td>
-				<td width = 500><c:out value="${Articles.title}"/></td>
+				<td width = 500><a href = '/articleBoard/selectedArticle/${Articles.id}'><c:out value="${Articles.title}"/></a></td>
 				<td width = 100><c:out value="${Articles.writer}"/></td>
 				<td width = 100><c:out value="${fn:substring(Articles.updateDate,0,11)}"/></td>
 			</tr>
 		</c:forEach>
 	</table>
 	
-	<input type = button value = "등록" onclick = "location.href='#'">
+	<input type = button value = "등록" onclick = "location.href='/articleBoard/articleSubmitForm'">
 	
 	<div class="text-center">
 
-		<a href='/articleBoard/${ArticlePagination.ppPage}'><c:out value="<<"/></a>
-		<a href='/articleBoard/${ArticlePagination.pPage}'><c:out value="<"/></a>
+		<a href='/articleBoard/articleList/${ArticlePagination.ppPage}'><c:out value="<<"/></a>
+		<a href='/articleBoard/articleList/${ArticlePagination.pPage}'><c:out value="<"/></a>
 
 		<c:forEach var="i" begin="${ArticlePagination.startPage}" end="${ArticlePagination.lastPage}">
-		  <b><a href = '/articleBoard/${i - 1}'>${i}</a></b>
+		  <b><a href = '/articleBoard/articleList/${i - 1}'>${i}</a></b>
 		</c:forEach>
 	
-		<a href='/articleBoard/${ArticlePagination.nPage}'><c:out value=">"/></a>
-		<a href='/articleBoard/${ArticlePagination.nnPage}'><c:out value=">>"/></a>
+		<a href='/articleBoard/articleList/${ArticlePagination.nPage}'><c:out value=">"/></a>
+		<a href='/articleBoard/articleList/${ArticlePagination.nnPage}'><c:out value=">>"/></a>
 
 	</div>
 </body>

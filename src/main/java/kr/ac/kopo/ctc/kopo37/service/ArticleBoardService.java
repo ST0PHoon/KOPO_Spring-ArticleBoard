@@ -10,7 +10,7 @@ import kr.ac.kopo.ctc.kopo37.dto.Pagination;
 
 public interface ArticleBoardService {
 	// C, U
-	void saveBoardItem(ArticleBoard articleBoard);
+	void saveArticle(ArticleBoard articleBoard);
 	
 	void updateArticleBoardView(Long id);
 	// R
