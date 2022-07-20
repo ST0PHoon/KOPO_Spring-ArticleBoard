@@ -9,8 +9,8 @@
 </head>
 <body>
 	<h2> 상세 정보 </h2>
-	<input type = button value = "수정" onclick = "location.href='update'"></td>
-	<input type = button value = "삭제" onclick = "location.href='delete'"></td>
+	<input type = button value = "수정" onclick = "location.href='update'">
+	<input type = button value = "삭제" onclick = "location.href='delete'">
 	
 	<table width=650 border=1 cellspacing=1>
 		<c:forEach var="article" items="${selectedArticleItem}">
@@ -25,13 +25,24 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<table>
+	<table width=650 border=1 cellspacing=1>
 		<c:forEach var="artircleReplies" items="${selectedArticleReplies}">
-			
-		
-			<p><c:out value="${artircleReplies.replyContent}"/></p>
-			<p><c:out value="${artircleReplies.replyWriter}"/></p>
-			<p><c:out value="${artircleReplies.depth}"/></p>
+			<tr>
+				<td width= 540>
+					<c:if test="${artircleReplies.depth == 1}">
+						<c:out value="${artircleReplies.replyContent}"/>
+					</c:if>
+					<c:if test="${artircleReplies.depth == 2}">
+						-> <c:out value="${artircleReplies.replyContent}"/>
+					</c:if>
+				</td>
+				<td>
+					<input type = button value = "삭제" onclick = "location.href='update'">
+					<c:if test="${artircleReplies.depth == 1}">
+						<input type = button value = "댓글" onclick = "location.href='delete'">
+					</c:if>
+				</td>
+			</tr>
 		</c:forEach>
 	</table>
 
