@@ -10,6 +10,8 @@ import kr.ac.kopo.ctc.kopo37.domain.ArticleBoard;
 public interface ArticleBoardService {
 	// C, U
 	void saveBoardItem(ArticleBoard articleBoard);
+	
+	void updateArticleBoardView(Long id);
 	// R
 	List<ArticleBoard> findOneById(Long id);	// 하나
 	

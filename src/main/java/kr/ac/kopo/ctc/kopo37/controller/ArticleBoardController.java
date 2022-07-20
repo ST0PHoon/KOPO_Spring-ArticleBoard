@@ -28,6 +28,8 @@ public class ArticleBoardController {
 	@RequestMapping(value = "/selectedArticle/{id}")
 	public String boardView(Model model, @PathVariable("id") Long id) {
 		
+		articleBoardService.updateArticleBoardView(id);
+		
 		model.addAttribute("selectedArticleItem", articleBoardService.findOneById(id));
 		model.addAttribute("selectedArticleReplies", articleReplyService.findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(id));
 		

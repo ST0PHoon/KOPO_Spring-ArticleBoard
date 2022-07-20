@@ -14,12 +14,24 @@ import kr.ac.kopo.ctc.kopo37.repository.ArticleBoardRepository;
 public class ArticleBoardServiceImpl implements ArticleBoardService {
 	@Autowired
 	ArticleBoardRepository articleBoardRepository;
-	
+	// C, U
 	@Override
 	public void saveBoardItem(ArticleBoard articleBoard) {
 		articleBoardRepository.save(articleBoard);
 	}
-
+	
+	@Override
+	public void updateArticleBoardView(Long id) {
+		ArticleBoard articleboard = articleBoardRepository.findById(id).get();
+		
+		Long plusView = articleboard.getView() + 1;
+		
+		articleboard.setView(plusView);
+		
+		articleBoardRepository.save(articleboard);
+	}
+	
+	// R
 	@Override
 	public List<ArticleBoard> findOneById(Long id) {
 		List<ArticleBoard> articleList = articleBoardRepository.findAllById(id);
@@ -43,10 +55,13 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	   
 	   return  articleItemsPage;
 	}
-
+	
+	// D
 	@Override
 	public void deleteById(Long id) {
 		articleBoardRepository.deleteById(id);;
 	}
+
+
 
 }
