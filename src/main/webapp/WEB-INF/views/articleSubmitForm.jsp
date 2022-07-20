@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h2>게시글 작성</h2>
-	<form method=post name='submitForm' action=saveArticle>
+	<form method=post name='submitForm' action=createArticle>
 		<table width=650 cellspacing = 1  border = 1>
 			<tr>
 				<td>제목</td>
@@ -38,7 +38,7 @@
 					<input type = button value="취소" onclick="location.href='/articleBoard/articleList'">
 				</td>
 				<td>
-					<input type = submit value="작성" onclick="location.href='/articleBoard/saveArticle'">
+					<input type = submit value="작성" onclick="location.href='/articleBoard/createArticle'">
 				</td>
 			</tr>
 		</table>

@@ -4,22 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 수정</title>
 </head>
 <body>
 	<h2>게시글 수정</h2>
-	<form method=post name='fm'>
+	<form method=post name='updateForm' action=updateArticle>
+		<input type = hidden name = id value = "${selectedArticle.id}">
+	
 		<table width=650 border=1 cellspacing=1>
 			<tr>
 				<td><b>제목</b></td>
 				<td>
-					<input type=text name=title size=70 maxlength=70 value="${selectedArticle.title}" readonly>
+					<input type=text name=title size=70 maxlength=70 value="${selectedArticle.title}">
 				</td>
 			</tr>
 			<tr>
 				<td><b>작성자</b></td>
 				<td>
-					<input type=text name=writer size=70 maxlength=70 required='required' value="${selectedArticle.writer}" >
+					<input type=text name=writer size=70 maxlength=70 required='required' value="${selectedArticle.writer}" readonly>
 				</td>
 			</tr>
 			<tr>
@@ -29,17 +31,15 @@
 				</td>
 			</tr>
 		</table>
-				<table width=650>
+		
+		<table width=650>
 			<tr>
 				<td width=600 />
 				<td>
-					<input type = submit value="취소" onclick="submitForm(1)">
+					<input type = button value="취소" onclick="location.href='/articleBoard/articleList'">
 				</td>
 				<td>
-					<input type = submit value="수정" onclick="submitForm(2)">
-				</td>
-				<td>
-					<input type = submit value="삭제" onclick="submitForm(3)">
+					<input type = submit value="수정" onclick="location.href='/articleBoard/updateArticle'">
 				</td>
 			</tr>
 		</table>

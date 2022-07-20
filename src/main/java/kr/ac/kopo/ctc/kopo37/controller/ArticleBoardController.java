@@ -59,9 +59,15 @@ public class ArticleBoardController {
 		return "articleUpdateForm";
 	}
 	
-	@RequestMapping(value = "/saveArticle")
-	public String saveArticle(ArticleBoard articleboard) {
-		articleBoardService.saveArticle(articleboard);
+	@RequestMapping(value = "/createArticle")
+	public String createArticle(ArticleBoard articleboard) {
+		articleBoardService.createArticle(articleboard);
+		return "redirect:/articleBoard/articleList";
+	}
+	
+	@RequestMapping(value = "/updateArticle")
+	public String updateArticle(ArticleBoard articleboard) {
+		articleBoardService.updateArticle(articleboard);
 		return "redirect:/articleBoard/articleList";
 	}
 	

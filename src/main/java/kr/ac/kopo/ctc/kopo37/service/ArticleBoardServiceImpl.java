@@ -18,15 +18,30 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	
 	// C, U
 	@Override
-	public void saveArticle(ArticleBoard articleBoard) {	// 저장 & 업데이트
+	public void createArticle(ArticleBoard articleBoard) {	// 저장 & 업데이트
 		// 받아오는 정보, title, writer, content
-		Date date = new Date();
+		Date date = new Date();		
 		
 		articleBoard.setView(0L);
 		articleBoard.setRegisterDate(date);
 		articleBoard.setUpdateDate(date);
-		
+			
 		articleBoardRepository.save(articleBoard);
+	}
+	
+	@Override
+	public void updateArticle(ArticleBoard articleBoard) {
+		
+		Date date = new Date();	
+		
+		ArticleBoard updatedArticle = articleBoardRepository.findById(articleBoard.getId()).get();
+		
+		updatedArticle.setTitle(articleBoard.getTitle());
+		updatedArticle.setWriter(articleBoard.getWriter());
+		updatedArticle.setContent(articleBoard.getContent());
+		updatedArticle.setUpdateDate(date);
+		
+		articleBoardRepository.save(updatedArticle);
 	}
 	
 	@Override
@@ -146,5 +161,7 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	public void deleteById(Long id) {
 		articleBoardRepository.deleteById(id);;
 	}
+
+
 
 }
