@@ -51,6 +51,14 @@ public class ArticleBoardController {
 		return "articleSubmitForm";
 	}
 	
+	@RequestMapping(value = "/articleUpdateForm")
+	public String goArticleUpdateForm(Model model, @RequestParam(value = "id") Long articleId) {
+		
+		model.addAttribute("selectedArticle", articleBoardService.findOneById(articleId));
+		
+		return "articleUpdateForm";
+	}
+	
 	@RequestMapping(value = "/saveArticle")
 	public String saveArticle(ArticleBoard articleboard) {
 		articleBoardService.saveArticle(articleboard);
@@ -58,7 +66,7 @@ public class ArticleBoardController {
 	}
 	
 	@RequestMapping(value = "/deleteArticle")
-	public String deleteArticle(Model model, @RequestParam(value = "id", required=false) Long articleId) {
+	public String deleteArticle( @RequestParam(value = "id") Long articleId) {
 		articleBoardService.deleteById(articleId);
 		
 		return "redirect:/articleBoard/articleList";

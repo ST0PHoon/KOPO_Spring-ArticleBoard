@@ -42,8 +42,8 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	
 	// R
 	@Override
-	public List<ArticleBoard> findOneById(Long id) {
-		List<ArticleBoard> articleList = articleBoardRepository.findAllById(id);
+	public ArticleBoard findOneById(Long id) {
+		ArticleBoard articleList = articleBoardRepository.findAllById(id).get(0);
 		return articleList;
 	}
 

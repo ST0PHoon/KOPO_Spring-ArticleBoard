@@ -14,7 +14,7 @@ public interface ArticleBoardService {
 	
 	void updateArticleBoardView(Long id);
 	// R
-	List<ArticleBoard> findOneById(Long id);	// 하나
+	ArticleBoard findOneById(Long id);	// 하나
 	
 	List<ArticleBoard> findAll();	// 전체
 	
