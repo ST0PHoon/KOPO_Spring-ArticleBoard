@@ -6,27 +6,40 @@
 <head>
 <meta charset="UTF-8">
 <title>글확인</title>
+<script>
+	function submitForm(mode) {
+		var myform = document.articleContent;
+		if (mode == 1) {
+			myform.action = "/articleBoard/articleUpdateForm";
+		}
+		if (mode == 2) {
+			myform.action = "/articleBoard/deleteArticle";
+		}
+	}
+</script>
+
 </head>
 <body>
 	<h2> 상세 정보 </h2>
 	<form method=post name='articleContent'>
-		<c:forEach var="article" items="${selectedArticleItem}">
-			<input type = submit value = "수정" onclick = "location.href='/articleBoard/updateArticle/${article.id}'">
-			<input type = submit value = "삭제" onclick = "location.href='/articleBoard/deleteArticle/${article.id}'">
-			
-			<table width=650 border=1 cellspacing=1>
-	
-					<tr>
-						<td>제목 : <c:out value="${article.title}"/></td>
-						<td>작성자: <c:out value="${article.writer}"/></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<textarea style='width:640px; height:250px; resize:none;' name =content cols=70 row=600 readonly><c:out value="${article.content}"/></textarea>
-						</td>
-					</tr>
-			</table>
-		</c:forEach>
+
+		<input type = submit value = "수정" onclick = "submitForm(1)">
+		<input type = submit value = "삭제" onclick = "submitForm(2)">
+		
+		<input type = hidden name = id value = "${selectedArticleItem.id}">
+		
+		<table width=650 border=1 cellspacing=1>
+				<tr>
+					<td>제목 : <c:out value="${selectedArticleItem.title}"/></td>
+					<td>작성자: <c:out value="${selectedArticleItem.writer}"/></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<textarea style='width:640px; height:250px; resize:none;' name =content cols=70 row=600 readonly><c:out value="${selectedArticleItem.content}"/></textarea>
+					</td>
+				</tr>
+		</table>
+
 		<table width=650 border=1 cellspacing=1>
 			<c:forEach var="artircleReplies" items="${selectedArticleReplies}">
 				<tr>
@@ -39,9 +52,9 @@
 						</c:if>
 					</td>
 					<td>
-						<input type = button value = "삭제" onclick = "location.href='update'">
+						<input type = button value = "삭제" onclick = "location.href='#'">
 						<c:if test="${artircleReplies.depth == 1}">
-							<input type = button value = "댓글" onclick = "location.href='/articelBoard/deleteArticle'">
+							<input type = button value = "댓글" onclick = "location.href='#'">
 						</c:if>
 					</td>
 				</tr>
