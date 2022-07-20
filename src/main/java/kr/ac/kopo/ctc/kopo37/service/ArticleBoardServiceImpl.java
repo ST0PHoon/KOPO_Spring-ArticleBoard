@@ -1,5 +1,6 @@
 package kr.ac.kopo.ctc.kopo37.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,17 @@ import kr.ac.kopo.ctc.kopo37.repository.ArticleBoardRepository;
 public class ArticleBoardServiceImpl implements ArticleBoardService {
 	@Autowired
 	ArticleBoardRepository articleBoardRepository;
+	
 	// C, U
 	@Override
-	public void saveBoardItem(ArticleBoard articleBoard) {	// 저장 & 업데이트
+	public void saveArticle(ArticleBoard articleBoard) {	// 저장 & 업데이트
+		// 받아오는 정보, title, writer, content
+		Date date = new Date();
+		
+		articleBoard.setView(0L);
+		articleBoard.setRegisterDate(date);
+		articleBoard.setUpdateDate(date);
+		
 		articleBoardRepository.save(articleBoard);
 	}
 	
