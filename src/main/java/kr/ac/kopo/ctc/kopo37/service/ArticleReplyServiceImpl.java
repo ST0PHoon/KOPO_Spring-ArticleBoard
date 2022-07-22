@@ -30,20 +30,23 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 		articleReplyRepository.save(articleReply);
 		
 		if (articleReply.getDepth() == 1) {
-			articleReply.setParentId(articleReply.getId());
-		}
-		
-		if (articleReply.getDepth() == 2) {
+			articleReply.setParentId(articleReply.getParentId());
 			
+			articleReplyRepository.save(articleReply);
 		}
-		
-		articleReplyRepository.save(articleReply);
+
 	}
 
 	@Override
 	public void updateArticleReply(ArticleReply articleReply) {
-		// TODO Auto-generated method stub
+		Date date = new Date();
 		
+		ArticleReply updateArticleReply = articleReplyRepository.findById(articleReply.getId()).get();
+		
+		updateArticleReply.setReplyContent(articleReply.getReplyContent());
+		updateArticleReply.setReplyUpdateDate(date);
+		
+		articleReplyRepository.save(updateArticleReply);
 	}
 
 	@Override
@@ -53,8 +56,8 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 	}
 
 	@Override
-	public List<ArticleReply> findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(Long boardId) {
-		List<ArticleReply> replyList = articleReplyRepository.findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(boardId);
+	public List<ArticleReply> findAllByArticleBoardIdOrderByParentIdAscIdAsc(Long boardId) {
+		List<ArticleReply> replyList = articleReplyRepository.findAllByArticleBoardIdOrderByParentIdAscIdAsc(boardId);
 		return replyList;
 	}
 	
@@ -66,7 +69,6 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 	@Override
 	public void deleteOneById(Long id) {	// 대댓글 삭제
 		articleReplyRepository.deleteById(id);
-		System.out.println("전장조아~");
 	}
 
 	@Override
