@@ -106,9 +106,10 @@
 					</td>
 					<td colspan = 2>
 						<input type = button value = "삭제" onclick = "location.href='/articleBoard/deleteArticleReply/${articleReplies.id}'">
-						<input type = button value = "수정" onclick = "location.href='/articleBoard/updateArticleReplyForm/${articleReplies.id}'">
+						<input type = button value = "수정" onclick = "location.href='/articleBoard/articleReplyUpdateForm/${articleReplies.id}'">
 					</td>
 				</tr>
+				
 				<c:if test="${articleReplies.depth == 1}">
 					<tr align = center>
 						<td width=460>댓 글</td>
@@ -116,17 +117,17 @@
 					</tr>
 					<tr>
 						<td>
-							<textarea style='width:450px; height:20px; resize:none;' name =replyContent cols=70 row=600 required='required'></textarea>
+							<textarea style='width:450px; height:20px; resize:none;' name =replyContent cols=70 row=600></textarea>
 						</td>
 						<td>
-							<input type=text name=replyWriter required='required'>
+							<input type=text name=replyWriter>
 						</td>
 						<td>
-							<input type = button value = "댓글" onclick = "location.href='#'">
+							<input type = submit value = "댓글" onclick = "submitFormArticleReplyDepthTwo(1)">
 						</td>
 					</tr>
+					<input type = hidden value="${articleReplies.parentId}" name = parentId >
 				</c:if>
-				<input type = hidden value="${articleReplies.id}" name = id >
 			</c:forEach>
 		</table>
 		
