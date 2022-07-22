@@ -54,7 +54,7 @@ public class ArticleBoardController {
 		articleBoardService.updateArticleBoardView(id);
 		
 		model.addAttribute("selectedArticleItem", articleBoardService.findOneById(id));
-		model.addAttribute("selectedArticleReplies", articleReplyService.findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(id));
+		model.addAttribute("selectedArticleReplies", articleReplyService.findAllByArticleBoardIdOrderByParentIdAscIdAsc(id));
 		
 		return "selectedArticle";
 	}
@@ -93,7 +93,9 @@ public class ArticleBoardController {
 		return "redirect:/articleBoard/articleListIndex";
 	}
 	
-	//      댓글
+	
+	
+	// 댓글
 	@RequestMapping(value = "/createArticleReply")
 	public String createArticleReply(ArticleReply articleReply) {
 		articleReplyService.createArticleReply(articleReply);
@@ -101,11 +103,19 @@ public class ArticleBoardController {
 		return "redirect:/articleBoard/selectedArticle/" + toGO;
 	}
 	
-	@RequestMapping(value = "/updateArticleReplyForm/{id}")
+	@RequestMapping(value = "/articleReplyUpdateForm/{id}")
 	public String updateArticleReplyForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("updateArticleReply", articleReplyService.findById(id));
 		
-		return "updateArticleReplyForm";
+		return "articleReplyUpdateForm";
+	}
+	
+	@RequestMapping(value = "/articleReplyUpdateForm/articleReplyUpdate")
+	public String updateArticleReply(ArticleReply articleReply) {
+		
+		articleReplyService.updateArticleReply(articleReply);
+
+		return "redirect:/articleBoard/articleListIndex";
 	}
 	
 	@RequestMapping(value = "/deleteArticleReply/{id}")
