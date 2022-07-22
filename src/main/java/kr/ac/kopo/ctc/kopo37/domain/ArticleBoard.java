@@ -30,7 +30,7 @@ public class ArticleBoard {
 	private Date updateDate;
 	
 	@JsonManagedReference
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="articleBoard")
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="articleBoard")
 	private List<ArticleReply> articleReplies;
 
 	public Long getId() {
