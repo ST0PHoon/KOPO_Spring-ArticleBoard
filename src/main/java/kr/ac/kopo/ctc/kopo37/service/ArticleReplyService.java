@@ -19,7 +19,7 @@ public interface ArticleReplyService {
 	
 	List<ArticleReply> findAllByArticleBoardId(Long id);
 	
-	List<ArticleReply> findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(Long id);	// 전체, 원글 아이디에 해당하는 내용만
+	List<ArticleReply> findAllByArticleBoardIdOrderByParentIdAscIdAsc(Long id);	// 전체, 원글 아이디에 해당하는 내용만
 	
 	// D
 	@Transactional 

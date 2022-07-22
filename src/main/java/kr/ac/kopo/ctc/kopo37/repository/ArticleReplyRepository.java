@@ -11,7 +11,7 @@ import kr.ac.kopo.ctc.kopo37.domain.ArticleReply;
 public interface ArticleReplyRepository extends JpaRepository<ArticleReply, Long> {
 	List<ArticleReply> findAllByArticleBoardId(Long id);
 	
-	List<ArticleReply> findAllByArticleBoardIdOrderByParentIdDescReplyIdAsc(Long id);
+	List<ArticleReply> findAllByArticleBoardIdOrderByParentIdAscIdAsc(Long id);
 	
 	void deleteByReplyId(Long id);
 	
