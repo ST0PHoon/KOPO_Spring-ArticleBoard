@@ -15,5 +15,5 @@ public interface ArticleReplyRepository extends JpaRepository<ArticleReply, Long
 	
 	void deleteByReplyId(Long id);
 	
-	void deleteByParentId(Long id);
+	void deleteAllByParentId(Long id);
 }

@@ -38,7 +38,7 @@
 					<input type = button value="취소" onclick="location.href='/articleBoard/articleList'">
 				</td>
 				<td>
-					<a href = "/articleBoard/createArticle"><input type = submit value="작성" class="button"></a>
+					<a href = "/articleBoard/createArticle"><input type = submit value="작성"></a>
 				</td>
 			</tr>
 		</table>

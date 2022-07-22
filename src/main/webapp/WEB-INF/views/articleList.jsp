@@ -10,7 +10,13 @@
 </head>
 <body>
 	<h2>게시판</h2>
-	<table cellspacing = 1  border = 1 width=750>
+	<form method=post action='articleList'>
+		<span> 검색 찬스 </span>
+		<input type=text name=title size=70 maxlength=70>
+		<input type=submit value = "검색" >
+	</form>
+	
+	<table cellspacing = 1  border = 1 width=750> 
 		<tr align=center>
 			<td width = 50>번호</td>
 			<td width = 500>제목</td>
@@ -31,7 +37,7 @@
 	<input type = button value = "등록" onclick = "location.href='/articleBoard/articleSubmitForm'">
 	
 	<div class="text-center">
-
+		
 		<a href='/articleBoard/articleList/${ArticlePagination.ppPage}'><c:out value="<<"/></a>
 		<a href='/articleBoard/articleList/${ArticlePagination.pPage}'><c:out value="<"/></a>
 
@@ -43,5 +49,6 @@
 		<a href='/articleBoard/articleList/${ArticlePagination.nnPage}'><c:out value=">>"/></a>
 
 	</div>
+
 </body>
 </html>

@@ -40,6 +40,7 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 		updatedArticle.setWriter(articleBoard.getWriter());
 		updatedArticle.setContent(articleBoard.getContent());
 		updatedArticle.setUpdateDate(date);
+
 		
 		articleBoardRepository.save(updatedArticle);
 	}
@@ -81,12 +82,31 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	   return  articleItemsPage;
 	}
 	
+
 	@Override
-	public Pagination getPagination(Integer currentPage) {
+	public List<ArticleBoard> findByTitleContainingOrderByIdDesc(String containedWord, Integer currentPage) {
+		final Integer articleNumber = 10;
+		
+	   // 첫페이지, 기준 id
+	   org.springframework.data.domain.Pageable pageableCondition = PageRequest.of(currentPage, articleNumber);
+	   
+	   List<ArticleBoard> articleSearchPage = articleBoardRepository.findByTitleContainingOrderByIdDesc(containedWord , pageableCondition).toList();
+	   
+	   return  articleSearchPage;
+	}
+	
+	@Override
+	public Pagination getPagination(String searchWord, Integer currentPage) {
 		final Integer countPerPage = 10;
 		final Integer pageSize = 10;
-		Integer totalCount = (int) articleBoardRepository.count();
-
+		int totalCount = 0;
+		
+		if (searchWord == null) {	//검색어가 없을 경우
+			totalCount = (int) articleBoardRepository.count();
+		} else  {	// 검색어가 있을 경우
+			totalCount = (int) articleBoardRepository.countByTitleContaining(searchWord);
+		}
+		
 		Pagination pagination = new Pagination();
 
 		// 총페이지 계산
@@ -161,7 +181,5 @@ public class ArticleBoardServiceImpl implements ArticleBoardService {
 	public void deleteById(Long id) {
 		articleBoardRepository.deleteById(id);;
 	}
-
-
 
 }

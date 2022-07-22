@@ -22,7 +22,9 @@ public interface ArticleBoardService {
 	
 	List<ArticleBoard> findByIdGreaterThanOrderByIdDesc(Integer currentPage);	// 페이징
 	
-	Pagination getPagination(Integer currentPage);
+	List<ArticleBoard> findByTitleContainingOrderByIdDesc(String containedWord, Integer currentPage);	// 검색 + 페이징
+	
+	Pagination getPagination(String searchWord, Integer currentPage); // 페이지 이동처리
 	
 	// D
 	void deleteById(Long id);

@@ -31,7 +31,6 @@ public class ArticleBoard {
 	
 	@JsonManagedReference
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="articleBoard")
-	
 	private List<ArticleReply> articleReplies;
 
 	public Long getId() {
