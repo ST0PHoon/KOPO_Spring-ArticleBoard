@@ -30,7 +30,7 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 		articleReplyRepository.save(articleReply);
 		
 		if (articleReply.getDepth() == 1) {
-			articleReply.setParentId(articleReply.getParentId());
+			articleReply.setParentId(articleReply.getId());
 			
 			articleReplyRepository.save(articleReply);
 		}

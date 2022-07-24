@@ -124,9 +124,9 @@
 						</td>
 						<td>
 							<input type = submit value = "댓글" onclick = "submitFormArticleReplyDepthTwo(1)">
+							<input type = hidden value="${articleReplies.parentId}" name = parentId >
 						</td>
 					</tr>
-					<input type = hidden value="${articleReplies.parentId}" name = parentId >
 				</c:if>
 			</c:forEach>
 		</table>

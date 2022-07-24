@@ -22,28 +22,47 @@ public class ArticleBoardController {
 	private ArticleReplyService articleReplyService;
 	
 	@RequestMapping(value = "/articleListIndex")
-	public String articleList(Model model) {
-		model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(0));
-		model.addAttribute("ArticlePagination", articleBoardService.getPagination(null, 0));
+	public String articleList1(Model model,  @RequestParam(value = "title", required = false) String searchWord) {
+		Integer currentArticlteListPage = 0;
+		
+		if (searchWord != null) {	// 검색어가 있는 경우
+			model.addAttribute("ArticleItems", articleBoardService.findByTitleContainingOrderByIdDesc(searchWord, currentArticlteListPage));
+			model.addAttribute("SearchWord", searchWord);
+			model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
+		}
+		
+		if (searchWord == null) {	// 검색어가 없는 경우
+			model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage));
+			model.addAttribute("SearchWord", "");
+			model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
+		}
+		
 		return "articleList";
 	}
 	// 검색방식
-	@RequestMapping(value = "/articleList/{page}")
-	public String articleList(Model model, ArticleBoard articleboard , @PathVariable("page") Integer currentArticlteListPage) {
-			String searchWord = articleboard.getTitle();
+	@RequestMapping(value = "/articleList/{page}/{searchWord}")
+	public String articleList(Model model, ArticleBoard articleboard, @PathVariable("page") Integer currentArticlteListPage,  @PathVariable("searchWord") String searchWord) {
 
-			if (searchWord == null) {	// 검색어가 없는 경우
+			if (searchWord.equals("")) {	// 검색어가 없는 경우
 				model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage));
+				model.addAttribute("SearchWord", "");
 				model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
-			}
-			
-			if (searchWord != null) {	// 검색어가 있는 경우
+			} else {	// 검색어가 있는 경우
 				model.addAttribute("ArticleItems", articleBoardService.findByTitleContainingOrderByIdDesc(searchWord, currentArticlteListPage));
 				model.addAttribute("SearchWord", searchWord);
 				model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
 			}
-
 		// 뷰
+		return "articleList";
+	}
+	
+	@RequestMapping(value = "/articleList/{page}")
+	public String articleListDefault(Model model, ArticleBoard articleboard, @PathVariable("page") Integer currentArticlteListPage) {
+
+		model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage));
+		model.addAttribute("SearchWord", "");
+		model.addAttribute("ArticlePagination", articleBoardService.getPagination("", currentArticlteListPage));
+
 		return "articleList";
 	}
 	
@@ -99,6 +118,7 @@ public class ArticleBoardController {
 	@RequestMapping(value = "/createArticleReply")
 	public String createArticleReply(ArticleReply articleReply) {
 		articleReplyService.createArticleReply(articleReply);
+		
 		Long toGO = articleReply.getReplyId();
 		return "redirect:/articleBoard/selectedArticle/" + toGO;
 	}
