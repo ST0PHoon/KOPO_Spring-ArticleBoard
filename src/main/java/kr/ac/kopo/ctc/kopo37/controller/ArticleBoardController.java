@@ -41,15 +41,10 @@ public class ArticleBoardController {
 	@RequestMapping(value = "/articleList/{page}/{searchWord}")
 	public String articleList(Model model, ArticleBoard articleboard, @PathVariable("page") Integer currentArticlteListPage,  @PathVariable("searchWord") String searchWord) {
 
-			if (searchWord.equals("")) {	// 검색어가 없는 경우
-				model.addAttribute("ArticleItems", articleBoardService.findByIdGreaterThanOrderByIdDesc(currentArticlteListPage));
-				model.addAttribute("SearchWord", "");
-				model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
-			} else {	// 검색어가 있는 경우
-				model.addAttribute("ArticleItems", articleBoardService.findByTitleContainingOrderByIdDesc(searchWord, currentArticlteListPage));
-				model.addAttribute("SearchWord", searchWord);
-				model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
-			}
+		model.addAttribute("ArticleItems", articleBoardService.findByTitleContainingOrderByIdDesc(searchWord, currentArticlteListPage));
+		model.addAttribute("SearchWord", searchWord);
+		model.addAttribute("ArticlePagination", articleBoardService.getPagination(searchWord, currentArticlteListPage));
+
 		// 뷰
 		return "articleList";
 	}
