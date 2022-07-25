@@ -24,12 +24,6 @@
 		}
 	}
 	
-	function submitFormArticleReplyDepthTwo(mode) {
-		var myform = document.articleReplyDepthTwo;
-		if (mode == 1) {
-			myform.action = "/articleBoard/createArticleReply";
-		}
-	}
 </script>
 
 </head>
@@ -38,6 +32,7 @@
 	<form method=post name='articleContent'>
 		<input type = submit value = "수정" onclick = "submitFormArticleContent(1)">
 		<input type = submit value = "삭제" onclick = "submitFormArticleContent(2)">
+		<input type = button value = "목록" onclick = "location.href='/articleBoard/articleListIndex'">
 		<table width=650 border=1 cellspacing=1>
 			<tr>
 				<td>제목 : <c:out value="${selectedArticleItem.title}"/></td>
@@ -78,7 +73,6 @@
 	
 	<br>
 		
-	<form method=post name='articleReplyDepthTwo'>
 		<table width=650 border=1 cellspacing=1>
 			<tr align="center">
 				<td colspan="3"> 
@@ -95,45 +89,47 @@
 			</c:if>
 		
 			<c:forEach var="articleReplies" items="${selectedArticleReplies}">
-				<tr>
-					<td width= 490>
-						<c:if test="${articleReplies.depth == 1}">
-							<c:out value="${articleReplies.replyContent}"/>
-						</c:if>
-						<c:if test="${articleReplies.depth == 2}">
-							-> <c:out value="${articleReplies.replyContent}"/>
-						</c:if>
-					</td>
-					<td colspan = 2>
-						<input type = button value = "삭제" onclick = "location.href='/articleBoard/deleteArticleReply/${articleReplies.id}'">
-						<input type = button value = "수정" onclick = "location.href='/articleBoard/articleReplyUpdateForm/${articleReplies.id}'">
-					</td>
-				</tr>
-				
-				<c:if test="${articleReplies.depth == 1}">
-					<tr align = center>
-						<td width=460>댓 글</td>
-						<td width=50>작성자</td>
-					</tr>
+				<form method=post name='articleReplyDepthTwo${articleReplies.id} }' action = "/articleBoard/createArticleReplyReply">
 					<tr>
-						<td>
-							<textarea style='width:450px; height:20px; resize:none;' name =replyContent cols=70 row=600></textarea>
+						<td width= 490>
+							<c:if test="${articleReplies.depth == 1}">
+								<c:out value="${articleReplies.replyContent}"/>
+							</c:if>
+							<c:if test="${articleReplies.depth == 2}">
+								-> <c:out value="${articleReplies.replyContent}"/>
+							</c:if>
 						</td>
-						<td>
-							<input type=text name=replyWriter>
-						</td>
-						<td>
-							<input type = submit value = "댓글" onclick = "submitFormArticleReplyDepthTwo(1)">
-							<input type = hidden value="${articleReplies.parentId}" name = parentId >
+						<td colspan = 2>
+							<input type = button value = "삭제" onclick = "location.href='/articleBoard/deleteArticleReply/${articleReplies.id}'">
+							<input type = button value = "수정" onclick = "location.href='/articleBoard/articleReplyUpdateForm/${articleReplies.id}'">
 						</td>
 					</tr>
-				</c:if>
+					
+					<c:if test="${articleReplies.depth == 1}">
+						<tr align = center>
+							<td width=460>댓 글</td>
+							<td width=50>작성자</td>
+						</tr>
+						<tr>
+							<td>
+								<textarea style='width:450px; height:20px; resize:none;' name ="replyContent" cols=70 row=600></textarea>
+							</td>
+							<td>
+								<input type=text name="replyWriter">
+							</td>
+							<td>
+								<input type = submit value = "댓글">
+								<input type = hidden value="${articleReplies.parentId}" name = "parentId" >
+							</td>
+						</tr>
+					</c:if>
+					<input type = hidden name = depth value = 2>
+					<input type = hidden name = replyId value = "${selectedArticleItem.id}">
+				</form>
 			</c:forEach>
 		</table>
 		
-		<input type = hidden value = 2 name = depth >
-		<input type = hidden name = replyId value = "${selectedArticleItem.id}">
-	</form>
+
 
 </body>
 </html>
