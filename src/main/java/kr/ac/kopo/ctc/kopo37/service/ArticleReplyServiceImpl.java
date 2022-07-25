@@ -67,13 +67,14 @@ public class ArticleReplyServiceImpl implements ArticleReplyService {
 	}
 
 	@Override
-	public void deleteOneById(Long id) {	// 대댓글 삭제
-		articleReplyRepository.deleteById(id);
-	}
-
-	@Override
-	public void deleteAllByParentId(Long id) {	// 댓글 삭제
-		articleReplyRepository.deleteAllByParentId(id);
+	public void deleteById(Long id) {	// 대댓글 삭제
+		ArticleReply articleReply = articleReplyRepository.findById(id).get();
+		
+		if (articleReply.getId() == articleReply.getParentId()) {
+			articleReplyRepository.deleteAllByParentId(id);
+		} else {
+			articleReplyRepository.deleteById(id);
+		}
 	}
 
 }
