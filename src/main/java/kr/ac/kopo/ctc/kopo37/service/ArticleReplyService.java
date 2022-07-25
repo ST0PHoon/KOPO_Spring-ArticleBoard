@@ -23,8 +23,6 @@ public interface ArticleReplyService {
 	
 	// D
 	@Transactional 
-	void deleteOneById(Long id);
-	
-	@Transactional 
-	void deleteAllByParentId(Long id);
+	void deleteById(Long id);
+
 }

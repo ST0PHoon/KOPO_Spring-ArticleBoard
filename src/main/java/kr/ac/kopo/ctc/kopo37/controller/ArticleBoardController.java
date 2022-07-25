@@ -1,5 +1,7 @@
 package kr.ac.kopo.ctc.kopo37.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,6 +125,15 @@ public class ArticleBoardController {
 		return "redirect:/articleBoard/selectedArticle/" + toGO;
 	}
 	
+	// 댓글
+	@RequestMapping(value = "/createArticleReplyReply")
+	public String createArticleReplyReply(ArticleReply articleReply) {
+		articleReplyService.createArticleReply(articleReply);
+		
+		Long toGO = articleReply.getReplyId();
+		return "redirect:/articleBoard/selectedArticle/" + toGO;
+	}
+	
 	@RequestMapping(value = "/articleReplyUpdateForm/{id}")
 	public String updateArticleReplyForm(Model model, @PathVariable("id") Long id) {
 		model.addAttribute("updateArticleReply", articleReplyService.findById(id));
@@ -141,7 +152,7 @@ public class ArticleBoardController {
 	@RequestMapping(value = "/deleteArticleReply/{id}")
 	public String deleteArticleReply( @PathVariable("id") Long id) {
 		
-		articleReplyService.deleteOneById(id);
+		articleReplyService.deleteById(id);
 		
 		return "redirect:/articleBoard/articleListIndex";
 	}
